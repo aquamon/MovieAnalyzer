@@ -1,4 +1,4 @@
-from analyzer import app
+from analyzer import app,os
 
 if __name__ == '__main__':
     # app.run(debug=False)
