@@ -125,7 +125,7 @@
                              <a href="{{ url_for('home') }}" aria-current="page">Home</a>
                           </li>
                           <li id="menu-item-275" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-275">
-                             <a href="#">Movies</a>
+                             <a href="{{url_for('in_cinema')}}">Movies</a>
                              <ul class="sub-menu">
                                 <li id="menu-item-292" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-292"><a href="{{url_for('in_cinema')}}">In Cinemas</a></li>
                              </ul>
@@ -135,15 +135,15 @@
                              <a href="{{ url_for('account') }}">Account</a>
                           </li>
                           
-                          <li id="menu-item-285" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-285">
+                          <li id="menu-item-286" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-285">
                              <a href="{{ url_for('logout') }}"> Logout</a>
                           </li>
 
                           {%else %}
-                          <li id="menu-item-285" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-285">
+                          <li id="menu-item-287" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-285">
                             <a href="{{ url_for('register') }}">Register</a>
                          </li>
-                         <li id="menu-item-285" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-285">
+                         <li id="menu-item-288" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-285">
                               <a href="{{ url_for('login') }}">Login</a>
                            </li>
                           {% endif %}
@@ -169,7 +169,7 @@
                  </ul>
               </li>
               <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-285">
-                 <a href="top-rated/index.html">Top rated</a>
+                 <a href="{{url_for('in_cinema')}}">Top rated</a>
               </li>
               <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-285">
                  <a href="#">Contact us</a>
