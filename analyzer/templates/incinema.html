@@ -1,0 +1,181 @@
+{% extends "layout.html" %} {% block content %}
+<div id="main">
+    <div id="content" class="site-content">
+        <section class="main-content page-layout-right">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="page-content">
+                            <div class="amy-section wpb_row  ">
+                                <div class="vc_row wpb_row vc_row-fluid">
+                                    <div class="wpb_column vc_column_container vc_col-sm-12">
+                                        <div class="vc_column-inner">
+                                            <div class="wpb_wrapper">
+                                                <div class="amy-movie-layout-list ">
+                                                    <div class="amy-movie-list">
+                                                        <div class="amy-movie-items">
+                                                            {%for movie in movieUSort%}
+                                                            <div class="amy-movie-item entry-item">
+                                                                <div class="amy-movie-item-inner">
+                                                                    <div class="amy-movie-item-front">
+                                                                        <div class="amy-movie-item-poster">
+                                                                            <a
+                                                                                href="{{ url_for('post', post_id=movie.id) }}">
+                                                                                <img width="196" height="336"
+                                                                                    src="{{ url_for('static', filename='moviePoster/' + movie.movieImage) }}"
+                                                                                    class="attachment-196x336 size-196x336"
+                                                                                    alt=""
+                                                                                    sizes="(max-width: 196px) 100vw, 196px" />
+                                                                            </a>
+                                                                            <span
+                                                                                class="amy-movie-field-imdb">{{movie.rating}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="amy-movie-item-back">
+                                                                        <div class="amy-movie-item-back-inner">
+                                                                            <div class="amy-movie-item-content">
+                                                                                <h3 class="amy-movie-field-title">
+                                                                                    <a
+                                                                                        href="{{ url_for('post', post_id=movie.id) }}">{{movie.movieName}}</a>
+                                                                                </h3>
+                                                                                <div class="amy-movie-field-rating">
+                                                                                    <div
+                                                                                        class="amy-movie-field-rating-inner">
+                                                                                        <ul class="mv-rating-stars">
+                                                                                            <li class="mv-current-rating"
+                                                                                                data-point="{{movie.rating * 10}}%">
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="amy-movie-item-meta">
+                                                                                    <span
+                                                                                        class="amy-movie-field-mpaa">{{movie.pg}}</span>
+                                                                                    <span
+                                                                                        class="amy-movie-field-duration"><i
+                                                                                            class="fa fa-clock-o"></i>{{movie.runTime}}</span>
+                                                                                </div>
+                                                                                <div class="amy-movie-field-desc">
+                                                                                    <p>{{movie.descr}}</p>
+                                                                                </div>
+                                                                                <div
+                                                                                    class="amy-movie-custom-field-group amy-movie-field-language">
+                                                                                    <label
+                                                                                        class="amy-movie-custom-field-label">Language:</label>
+                                                                                    <div
+                                                                                        class="amy-movie-custom-field-content">
+                                                                                        {{movie.language}}
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div
+                                                                                    class="amy-movie-custom-field-group amy-movie-field-release_date">
+                                                                                    <label
+                                                                                        class="amy-movie-custom-field-label">Release
+                                                                                        Date:</label>
+                                                                                    <div
+                                                                                        class="amy-movie-custom-field-content">
+                                                                                        {{movie.release}}
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div
+                                                                                    class="amy-movie-custom-field-group amy-movie-field-amy_genre">
+                                                                                    <label
+                                                                                        class="amy-movie-custom-field-label">Genre:</label>
+                                                                                    <div
+                                                                                        class="amy-movie-custom-field-content">
+                                                                                        <a
+                                                                                            href="{{ url_for('post', post_id=movie.id) }}">{{movie.genre}}</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div
+                                                                                    class="amy-movie-custom-field-group amy-movie-field-amy_actor">
+                                                                                    <label
+                                                                                        class="amy-movie-custom-field-label">Actor:</label>
+                                                                                    <div
+                                                                                        class="amy-movie-custom-field-content">
+                                                                                        <a
+                                                                                            href="{{ url_for('post', post_id=movie.id) }}">{{movie.Actor}}</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div
+                                                                                    class="amy-movie-custom-field-group amy-movie-field-amy_director">
+                                                                                    <label
+                                                                                        class="amy-movie-custom-field-label">Director:</label>
+                                                                                    <div
+                                                                                        class="amy-movie-custom-field-content">
+                                                                                        <a
+                                                                                            href="{{ url_for('post', post_id=movie.id) }}">{{movie.director}}</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            {%endfor%}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 amy-sidebar-clear">
+                        <div class="amy-page-sidebar amy-sidebar-right">
+                            <aside id="sidebar">
+                                <div class="amy-widget amy-widget-list">
+                                    <div class="amy-widget amy-widget-list list-movie ">
+                                        <h4 class="amy-title amy-widget-title"
+                                            style="font-size: 22px; margin-bottom: 10px;">
+                                            Top Movies
+                                        </h4>
+                                        {%for movie in movieSort%}
+                                        <div class="entry-item">
+                                            <div class="entry-thumb">
+                                                    <a
+                                                    href="{{ url_for('post', post_id=movie.id) }}">
+                                                <img width="118" height="159"
+                                                    src="{{ url_for('static', filename='moviePoster/' + movie.movieImage) }}"
+                                                    class="attachment-118x159 size-118x159" alt=""
+                                                    sizes="(max-width: 118px) 100vw, 118px" /></a>
+                                            </div>
+                                            <div class="entry-content">
+                                                <h2 class="entry-title">
+                                                    <a href="{{ url_for('post', post_id=movie.id) }}">{{movie.movieName}}</a>
+                                                </h2>
+                                                <div>
+                                                    <span class="duration"><i
+                                                            class="fa fa-clock-o"></i>{{movie.runTime}}
+                                                        minutes</span>
+                                                </div>
+                                                <div class="genre">
+                                                    <span><a href="#">{{movie.genre}}</a>, </span>
+                                                </div>
+                                                <div class="mrate">
+                                                    <ul class="mv-rating-stars">
+                                                        <li class="mv-current-rating"
+                                                            data-point="{{movie.rating * 10}}%"></li>
+                                                    </ul>
+                                                    <span class="rate">{{movie.rating}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        {%endfor%}
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </aside>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+{% endblock content %}
