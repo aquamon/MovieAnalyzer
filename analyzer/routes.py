@@ -12,16 +12,12 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route("/")
 @app.route("/home")
 def home():
-    # posts = Post.query.all()
-    # return render_template('home.html', posts=posts)
     form = PostForm()
     moviePosts = Movies.query.all()
     return render_template('home.html', moviePosts=moviePosts,form=form)
 
 
-@app.route("/about")
-def about():
-    return render_template('about.html', title='About')
+
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -102,29 +98,25 @@ def account():
                            image_file=image_file, form=form)
 
 
-# @app.route("/post/new", methods=['GET', 'POST'])
-# @login_required
-# def new_post():
-#     form = PostForm()
-#     if form.validate_on_submit():
-#         post = Post(title=form.title.data, content=form.content.data, author=current_user)
-#         db.session.add(post)
-#         db.session.commit()
-#         flash('Your post has been created!', 'success')
-    #     return redirect(url_for('home'))
-    # return render_template('create_post.html', title='New Post',
-    #                        form=form, legend='New Post')
+
 
 
 @app.route("/post/<int:post_id>", methods=['GET', 'POST'])
 def post(post_id):
-    # post = Post.query.get_or_404(post_id)
-    # return render_template('post.html', title=post.title, post=post)
+    
     form = PostForm(request.form)
     if form.validate_on_submit():
         review = request.form['content']
         y,proba = classify(review)
-        postO = Post(title=form.title.data, content=form.content.data, author=current_user, movies_id = post_id,postRating=round(proba*10,2))
+        postR = 0
+        if(y == 'negative'):
+            postR = 1 - proba
+            print(proba)
+        else:
+            postR = proba
+        
+
+        postO = Post(title=form.title.data, content=form.content.data, author=current_user, movies_id = post_id,postRating=round(postR*10, 2))
         db.session.add(postO)
         db.session.commit()   
         flash('Your post has been created!', 'success') 
@@ -139,6 +131,7 @@ def post(post_id):
         rate = sum/postLen
     else:
         rate =  0
+        
     moviePost = Movies.query.get_or_404(post_id)
     moviePost.rating = round(rate,2)
     db.session.commit()
@@ -147,33 +140,7 @@ def post(post_id):
     return render_template('post.html', title = moviePost.movieName, moviePost=moviePost,post=post,rate=round(rate,2),form=form)
 
 
-@app.route("/post/<int:post_id>/update", methods=['GET', 'POST'])
-@login_required
-def update_post(post_id):
-    post = Post.query.get_or_404(post_id)
-    if post.author != current_user:
-        abort(403)
-    form = PostForm()
-    if form.validate_on_submit():
-        post.title = form.title.data
-        post.content = form.content.data
-        db.session.commit()
-        flash('Your post has been updated!', 'success')
-        return redirect(url_for('post', post_id=post.id))
-    elif request.method == 'GET':
-        form.title.data = post.title
-        form.content.data = post.content
-    return render_template('create_post.html', title='Update Post',
-                           form=form, legend='Update Post')
 
 
-@app.route("/post/<int:post_id>/delete", methods=['POST'])
-@login_required
-def delete_post(post_id):
-    post = Post.query.get_or_404(post_id)
-    if post.author != current_user:
-        abort(403)
-    db.session.delete(post)
-    db.session.commit()
-    flash('Your post has been deleted!', 'success')
-    return redirect(url_for('home'))
+
+
